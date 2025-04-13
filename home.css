@@ -212,6 +212,7 @@ body {
   font-family: var(--paragraph-font);
   font-weight: 500;
   border: 2px solid var(--secondary-border);
+  color: var(--text-color);
   border-radius: 20px;
   cursor: pointer;
   transition: 0.2s;
@@ -222,13 +223,13 @@ body {
 }
 .task-buttons button:first-child:hover {
   background-color: hsl(0, 100%, 60%);
+  color: var(--text-color);
 }
 .task-buttons button:last-child {
   background-color: var(--secondary-border);
 }
 .task-buttons button:last-child:hover {
   background-color: var(--secondary-bg);
-  color: var(--text-color);
 }
 
 @media (min-width: 992px) {
