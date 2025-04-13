@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag & Drop Kanban Board</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <main id="app">
+      <section class="container">
+        <div class="article">
+          <h1>Welcome to Taskgram</h1>
+          <p>A Simple Drag & Drop Kaban Board</p>
+        </div>
+        <form id="form" class="form">
+          <label for="name">Name</label>
+          <div class="input-container">
+            <input
+              type="text"
+              id="name"
+              required
+              placeholder="Enter your name and hit enter"
+            />
+            <button id="submit" type="submit" class="submit-button">
+              <a href="/home.html"
+                ><i class="fa-solid fa-arrow-right arrow"></i
+              ></a>
+            </button>
+          </div>
+        </form>
+      </section>
+      <div class="footer">
+        <p>
+          Taskgram&mdash;a simple drag & drop kanban board with
+          <strong>HTML, CSS & JavaScript.</strong> Built with ❣️ by
+          <a
+            href="https://github.com/Sammytee98?tab=repositories"
+            target="_blank"
+            >Big Sam.</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
