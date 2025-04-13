@@ -24,108 +24,62 @@
           <div class="todo-container task-container">
             <div class="task-header">
               <span>Todo</span>
-              <div class="icon-con">
-                <i
-                  class="fa fa-plus plus-icon"
-                  id="addIcon"
-                  aria-hidden="true"
-                ></i>
-              </div>
+              <button data-status="todo" class="icon-con add-icon">
+                <i class="fa fa-plus plus-icon" aria-hidden="true"></i>
+              </button>
             </div>
-            <ul id="todoCon">
-              <li>
-                <span>Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-              <li>
-                <span>Another Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-            </ul>
+            <ul id="todoCon" data-column="todo"></ul>
           </div>
 
           <div class="progress-container task-container">
             <div class="task-header">
               <span>In Progress</span>
-              <div class="icon-con">
-                <i
-                  class="fa fa-plus plus-icon"
-                  id="addIcon"
-                  aria-hidden="true"
-                ></i>
-              </div>
+              <button data-status="progress" class="icon-con add-icon">
+                <i class="fa fa-plus plus-icon" aria-hidden="true"></i>
+              </button>
             </div>
-            <ul id="progressCon">
-              <li>
-                <span>Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-              <li>
-                <span>Another Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-            </ul>
+            <ul id="progressCon" data-column="progress"></ul>
           </div>
 
           <div class="review-container task-container">
             <div class="task-header">
               <span>Review</span>
-              <div class="icon-con">
-                <i
-                  class="fa fa-plus plus-icon"
-                  id="addIcon"
-                  aria-hidden="true"
-                ></i>
-              </div>
+              <button data-status="review" class="icon-con add-icon">
+                <i class="fa fa-plus plus-icon" aria-hidden="true"></i>
+              </button>
             </div>
-            <ul id="reviewCon">
-              <li>
-                <span>Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-              <li>
-                <span>Another Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-            </ul>
+            <ul id="reviewCon" data-column="review"></ul>
           </div>
 
           <div class="done-container task-container">
             <div class="task-header">
               <span>Done</span>
-              <div class="icon-con">
-                <i
-                  class="fa fa-plus plus-icon"
-                  id="addIcon"
-                  aria-hidden="true"
-                ></i>
-              </div>
+              <button data-status="done" class="icon-con add-icon">
+                <i class="fa fa-plus plus-icon" aria-hidden="true"></i>
+              </button>
             </div>
-            <ul id="doneCon">
-              <li>
-                <span>Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-              <li>
-                <span>Another Testing</span>
-                <i id="delete" class="fa-regular fa-trash-can"></i>
-              </li>
-            </ul>
+            <ul id="doneCon" data-column="done"></ul>
           </div>
         </div>
       </section>
     </main>
     <section id="modal">
       <div class="new-task-container">
-        <h2>New Task &mdash; <span>Todo</span></h2>
+        <h2>New Task &mdash; <span class="task-class"></span></h2>
 
         <form id="newTaskForm" class="newTaskForm">
           <div class="new-task-input">
-            <label for="newTask">Task Content</label>
-            <input type="text" id="newTask" class="input" required />
+            <label for="newTaskInput">Task Content</label>
+            <input
+              name="task"
+              type="text"
+              id="newTaskInput"
+              class="input"
+              required
+            />
           </div>
           <div class="task-buttons">
-            <button id="cancel">Cancel</button>
+            <button type="button" id="cancel">Cancel</button>
             <button type="submit" id="addTask">Add Task</button>
           </div>
         </form>

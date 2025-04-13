@@ -151,13 +151,14 @@ body {
   display: none;
   z-index: 1000;
   width: 80%;
+  height: 400px;
   max-width: 600px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--text-color);
-  padding: 10px 10px 20px 10px;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 15px 0 var(--secondary-border);
 }
@@ -169,10 +170,12 @@ body {
 .newTaskForm {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 .new-task-container h2 {
   font-size: 2em;
   font-family: var(--title-font);
+  text-align: center;
 }
 .new-task-container h2 > span {
   color: var(--secondary-border);
@@ -181,7 +184,7 @@ body {
 .new-task-input {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 .new-task-input label {
   font-family: var(--paragraph-font);
@@ -190,21 +193,21 @@ body {
 }
 .new-task-input .input {
   font-family: var(--paragraph-font);
-  padding: 15px;
+  padding: 20px;
   border-radius: 20px;
   background-color: var(--bottom-bg);
-  outline: none;
+  outline-color: var(--secondary-border);
   border: none;
 }
 .task-buttons {
   display: flex;
-  align-self: flex-end;
-  gap: 15px;
+  align-self: center;
+  gap: 20px;
   margin-top: 30px;
 }
 .task-buttons button {
   all: unset;
-  padding: 10px 20px;
+  padding: 10px 50px;
   font-size: 1.2em;
   font-family: var(--paragraph-font);
   font-weight: 500;
@@ -215,18 +218,17 @@ body {
 }
 .task-buttons button:first-child {
   border-color: hsl(0, 100%, 60%);
+  color: hsl(0, 0%, 0%);
 }
 .task-buttons button:first-child:hover {
   background-color: hsl(0, 100%, 60%);
-  color: var(--text-color);
 }
 .task-buttons button:last-child {
   background-color: var(--secondary-border);
-  color: var(--text-color);
 }
 .task-buttons button:last-child:hover {
-  background-color: var(--text-color);
-  color: hsl(0, 0%, 0%);
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
 }
 
 @media (min-width: 992px) {
