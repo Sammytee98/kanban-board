@@ -130,7 +130,7 @@ body {
   flex-direction: column;
   gap: 10px;
 }
-.task-container ul li {
+.task-item {
   display: flex;
   justify-content: space-between;
   background-color: var(--text-color);

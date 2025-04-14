@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { constructNow, format } from "date-fns";
 import { setLocalStorage, getLocalStorage } from "./localStorage";
 
 const username = getLocalStorage("username");
@@ -10,6 +10,7 @@ const cancel = document.querySelector("#cancel");
 const taskForm = document.querySelector("#newTaskForm");
 const taskContainer = document.querySelectorAll("ul[data-column]");
 const addIcon = document.querySelectorAll(".add-icon");
+let draggedItem = null;
 let currentStatus;
 
 const formattedName = (name) => {
@@ -46,6 +47,66 @@ addIcon.forEach((btn) => {
   });
 });
 
+const handleDragStart = (e) => {
+  draggedItem = e.target;
+  setTimeout(() => (draggedItem.style.visibility = "hidden"), 0);
+};
+
+const handleDragEnd = (e) => {
+  e.target.style.visibility = "visible";
+  draggedItem = null;
+
+  const parent = e.target.closest("ul");
+  const columnId = parent.dataset.column;
+  const updatedTasks = Array.from(parent.querySelectorAll("li span")).map(
+    (span) => span.textContent
+  );
+  setLocalStorage(columnId, updatedTasks);
+};
+
+const handleDragOver = (e) => {
+  e.preventDefault();
+  const draggingOverItem = e.target.closest("li");
+  const container = e.currentTarget;
+
+  if (!draggedItem || !draggingOverItem || draggingOverItem === draggedItem)
+    return;
+
+  const bounding = draggingOverItem.getBoundingClientRect();
+  const offset = e.clientY - bounding.top;
+
+  if (offset < bounding.height / 2) {
+    container.insertBefore(draggedItem, draggingOverItem);
+  } else {
+    container.insertBefore(draggedItem, draggingOverItem.nextSibling);
+  }
+};
+
+const handleDragDrop = (e) => {
+  e.preventDefault();
+  if (draggedItem && e.currentTarget !== draggedItem.parentElement) {
+    e.currentTargetarget.appendChild(draggedItem);
+
+    const newColumnId = e.currentTarget.dataset.column;
+    const updatedTasks = Array.from(
+      e.currentTarget.querySelectorAll("li span")
+    ).map((span) => span.textContent);
+    setLocalStorage(newColumnId, updatedTasks);
+
+    // Updating the previous column
+    const prevColumnId = draggedItem.closest("ul")?.dataset.column;
+    if (prevColumnId && prevColumnId !== newColumnId) {
+      const prevColumn = document.querySelector(
+        `ul[data-column="${prevColumnId}"]`
+      );
+      const prevTasks = Array.from(prevColumn.querySelectorAll("li span")).map(
+        (span) => span.textContent
+      );
+      setLocalStorage(prevColumnId, prevTasks);
+    }
+  }
+};
+
 taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const newTaskInput = document.querySelector("#newTaskInput");
@@ -56,10 +117,14 @@ taskForm.addEventListener("submit", (e) => {
   const targetUI = document.querySelector(`ul[data-column="${currentStatus}"]`);
 
   const newList = document.createElement("li");
+  newList.classList.add("task-item");
   newList.innerHTML = `
-                <span>${taskValue}</span>
-                <i id="delete" class="fa-regular fa-trash-can delete-btn"></i>
+      <span>${taskValue}</span>
+      <i id="delete" class="fa-regular fa-trash-can delete-btn"></i>
   `;
+  newList.setAttribute("draggable", "true");
+  newList.addEventListener("dragstart", handleDragStart);
+  newList.addEventListener("dragend", handleDragEnd);
 
   targetUI.appendChild(newList);
 
@@ -92,15 +157,23 @@ taskContainer.forEach((ul) => {
 cancel.addEventListener("click", () => (modal.style.display = "none"));
 
 taskContainer.forEach((ul) => {
+  ul.addEventListener("dragover", (e) => handleDragOver(e));
+  ul.addEventListener("drop", handleDragDrop);
   const columnId = ul.dataset.column;
   const tasks = getLocalStorage(columnId) || [];
 
   tasks.forEach((task) => {
     const li = document.createElement("li");
+    li.classList.add("task-item");
     li.innerHTML = `
     <span>${task}</span>
     <i id="delete" class="fa-regular fa-trash-can delete-btn"></i>
 `;
+
+    li.setAttribute("draggable", "true");
+    li.addEventListener("dragstart", handleDragStart);
+    li.addEventListener("dragend", handleDragEnd);
+
     ul.appendChild(li);
   });
 });
