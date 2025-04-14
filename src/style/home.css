@@ -138,6 +138,7 @@ body {
   font-size: 1.2em;
   font-family: var(--paragraph-font);
   border-radius: 10px;
+  touch-action: none;
 }
 #delete {
   color: hsl(0, 100%, 60%);
@@ -230,6 +231,10 @@ body {
 }
 .task-buttons button:last-child:hover {
   background-color: var(--secondary-bg);
+}
+
+.task-opacity {
+  opacity: 0.5;
 }
 
 @media (min-width: 992px) {

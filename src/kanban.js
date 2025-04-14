@@ -1,5 +1,6 @@
 import { constructNow, format } from "date-fns";
 import { setLocalStorage, getLocalStorage } from "./localStorage";
+import { addTouchSupport } from "./touchHelper";
 
 const username = getLocalStorage("username");
 
@@ -85,7 +86,7 @@ const handleDragOver = (e) => {
 const handleDragDrop = (e) => {
   e.preventDefault();
   if (draggedItem && e.currentTarget !== draggedItem.parentElement) {
-    e.currentTargetarget.appendChild(draggedItem);
+    e.currentTarget.appendChild(draggedItem);
 
     const newColumnId = e.currentTarget.dataset.column;
     const updatedTasks = Array.from(
@@ -116,17 +117,18 @@ taskForm.addEventListener("submit", (e) => {
 
   const targetUI = document.querySelector(`ul[data-column="${currentStatus}"]`);
 
-  const newList = document.createElement("li");
-  newList.classList.add("task-item");
-  newList.innerHTML = `
+  const newTask = document.createElement("li");
+  newTask.classList.add("task-item");
+  newTask.innerHTML = `
       <span>${taskValue}</span>
       <i id="delete" class="fa-regular fa-trash-can delete-btn"></i>
   `;
-  newList.setAttribute("draggable", "true");
-  newList.addEventListener("dragstart", handleDragStart);
-  newList.addEventListener("dragend", handleDragEnd);
+  newTask.setAttribute("draggable", "true");
+  newTask.addEventListener("dragstart", handleDragStart);
+  newTask.addEventListener("dragend", handleDragEnd);
 
-  targetUI.appendChild(newList);
+  addTouchSupport(newTask);
+  targetUI.appendChild(newTask);
 
   const updatedTasks = Array.from(targetUI.querySelectorAll("li span")).map(
     (span) => span.textContent
@@ -173,6 +175,8 @@ taskContainer.forEach((ul) => {
     li.setAttribute("draggable", "true");
     li.addEventListener("dragstart", handleDragStart);
     li.addEventListener("dragend", handleDragEnd);
+
+    addTouchSupport(li);
 
     ul.appendChild(li);
   });
