@@ -208,7 +208,7 @@ body {
 }
 .task-buttons button {
   all: unset;
-  padding: 10px 50px;
+  padding: 10px 30px;
   font-size: 1.2em;
   font-family: var(--paragraph-font);
   font-weight: 500;

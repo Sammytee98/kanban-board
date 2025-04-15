@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./localStorage";
+import { setLocalStorage } from "./localStorage";
 
 const form = document.getElementById("form");
 const input = document.getElementById("name");
