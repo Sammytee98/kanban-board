@@ -8,7 +8,7 @@ form.addEventListener("submit", (e) => {
   const inputValue = input.value;
   if (input) {
     setLocalStorage("username", inputValue);
-    window.location.href = "/home.html";
+    window.location.href = "/home";
   } else {
     alert("Please enter your name!");
   }
