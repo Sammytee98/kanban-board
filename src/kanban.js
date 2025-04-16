@@ -15,9 +15,14 @@ let draggedItem = null;
 let currentStatus;
 
 const formattedName = (name) => {
-  const firstLetter = name.slice(0, 1).toLocaleUpperCase();
-  const restOfLetter = name.slice(1, name.length).toLocaleLowerCase();
-  return firstLetter + restOfLetter;
+  return name
+    .trim()
+    .split(" ")
+    .filter((word) => word.trim() !== "")
+    .map(
+      (word) => word[0].toLocaleUpperCase() + word.slice(1).toLocaleLowerCase()
+    )
+    .join(" ");
 };
 
 const currDate = new Date();
@@ -108,7 +113,7 @@ const handleDragDrop = (e) => {
   }
 };
 
-taskForm.addEventListener("submit", (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   const newTaskInput = document.querySelector("#newTaskInput");
   const taskValue = newTaskInput.value.trim();
@@ -137,26 +142,31 @@ taskForm.addEventListener("submit", (e) => {
 
   newTaskInput.value = "";
   modal.style.display = "none";
-});
+};
 
-taskContainer.forEach((ul) => {
-  ul.addEventListener("click", (e) => {
+taskForm.addEventListener("submit", handleSubmit);
+cancel.addEventListener("click", () => (modal.style.display = "none"));
+
+const handleDelete = (item) => {
+  item.addEventListener("click", (e) => {
     if (e.target && e.target.id === "delete") {
       const li = e.target.closest("li");
       if (li) {
         li.remove();
 
-        const updatedTasks = Array.from(ul.querySelectorAll("li span")).map(
+        const updatedTasks = Array.from(item.querySelectorAll("li span")).map(
           (span) => span.textContent
         );
-        const columnId = ul.dataset.column;
+        const columnId = item.dataset.column;
         setLocalStorage(columnId, updatedTasks);
       }
     }
   });
-});
+};
 
-cancel.addEventListener("click", () => (modal.style.display = "none"));
+taskContainer.forEach((ul) => {
+  handleDelete(ul);
+});
 
 taskContainer.forEach((ul) => {
   ul.addEventListener("dragover", (e) => handleDragOver(e));

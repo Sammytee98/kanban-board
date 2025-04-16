@@ -7,12 +7,13 @@ export const addTouchSupport = (item) => {
   item.addEventListener("touchstart", (e) => {
     touchStartItem = item;
     startTouchY = e.touches[0].clientY;
-    setTimeout(() => (item.style.visibity = "hidden"), 0);
+    setTimeout(() => (item.style.opacity = "0.7"), 0);
   });
 
   item.addEventListener("touchmove", (e) => {
     e.preventDefault();
     const touch = e.touches[0];
+
     const overElement = document.elementFromPoint(touch.clientX, touch.clientY);
     const dropZone = overElement?.closest("ul[data-column]");
     const draggingOverItem = overElement?.closest("li.task-item");
@@ -37,9 +38,9 @@ export const addTouchSupport = (item) => {
     }
   });
 
-  item.addEventListener("touchend", (e) => {
+  item.addEventListener("touchend", () => {
     if (touchStartItem) {
-      touchStartItem.style.visibity = "visible";
+      touchStartItem.style.opacity = "1";
 
       const parent = touchStartItem.closest("ul[data-column]");
       const columnId = parent.dataset.column;
