@@ -15,14 +15,16 @@ let draggedItem = null;
 let currentStatus;
 
 const formattedName = (name) => {
-  return name
+  const splitName = name
     .trim()
     .split(" ")
-    .filter((word) => word.trim() !== "")
+    .filter((word) => word.trim() !== "");
+  const capitalizedName = splitName
     .map(
       (word) => word[0].toLocaleUpperCase() + word.slice(1).toLocaleLowerCase()
     )
     .join(" ");
+  return capitalizedName;
 };
 
 const currDate = new Date();
@@ -31,26 +33,28 @@ const formatedDate = format(currDate, "PPPP");
 welcomeMessage.textContent = `Welcome to dashboard, ${formattedName(username)}`;
 userDate.textContent = formatedDate;
 
+const handleAddClick = (button) => {
+  const taskClass = document.querySelector(".task-class");
+  currentStatus = button.dataset.status;
+
+  const titleFirstLetter = currentStatus.slice(0, 1).toLocaleUpperCase();
+  const titleRestLetter = currentStatus
+    .slice(1, currentStatus.length)
+    .toLocaleLowerCase();
+  const taskStatus = titleFirstLetter + titleRestLetter;
+  taskClass.textContent = taskStatus;
+
+  if (taskStatus === "Progress") taskClass.textContent = `In ${taskStatus}`;
+
+  modal.style.display = "block";
+
+  setTimeout(() => {
+    document.querySelector("#newTaskInput").focus();
+  }, 50);
+};
+
 addIcon.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const taskClass = document.querySelector(".task-class");
-    currentStatus = btn.dataset.status;
-
-    const titleFirstLetter = currentStatus.slice(0, 1).toLocaleUpperCase();
-    const titleRestLetter = currentStatus
-      .slice(1, currentStatus.length)
-      .toLocaleLowerCase();
-    const taskStatus = titleFirstLetter + titleRestLetter;
-    taskClass.textContent = taskStatus;
-
-    if (taskStatus === "Progress") taskClass.textContent = `In ${taskStatus}`;
-
-    modal.style.display = "block";
-
-    setTimeout(() => {
-      document.querySelector("#newTaskInput").focus();
-    }, 50);
-  });
+  btn.addEventListener("click", () => handleAddClick(btn));
 });
 
 const handleDragStart = (e) => {
